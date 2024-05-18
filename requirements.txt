@@ -1,5 +1,5 @@
 # LangChain
-langchain==3.0.0
+langchain==0.2.0
 
 # Hugging Face Transformers
 transformers==4.12.0
