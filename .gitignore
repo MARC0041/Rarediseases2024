@@ -15,5 +15,8 @@ HPP Datasets/*
 # Others
 *.DS_Store
 
+# venv
+venv/*
+
 # marcus specific git ignore folders
 assignment7/*
