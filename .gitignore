@@ -20,3 +20,4 @@ venv/*
 
 # marcus specific git ignore folders
 assignment7/*
+*.env
