@@ -1,0 +1,19 @@
+# Ignore data files
+*.pdf
+*.xml
+*.txt
+*.zip
+*.docx
+*.doc
+*.rtf
+*.xlsx
+*.pptx
+*.epub
+EDS Datasets/*
+HPP Datasets/*
+
+# Others
+*.DS_Store
+
+# marcus specific git ignore folders
+assignment7/*
