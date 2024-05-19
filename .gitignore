@@ -17,6 +17,7 @@ HPP Datasets/*
 
 # venv
 venv/*
+test_env/*
 
 # marcus specific git ignore folders
 assignment7/*
