@@ -22,3 +22,5 @@ test_env/*
 # marcus specific git ignore folders
 assignment7/*
 *.env
+*.egg-info/*
+*/__pycache__/*
