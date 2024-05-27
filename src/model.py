@@ -74,7 +74,6 @@ if __name__ == "__main__":
     path = r"C:\Users\TechD\Documents\Marcus\LLMs\Rarediseases2024\data\HPP Papers (PDF) Via Liezl Puzon\10.1002___ajmg.a.33146.pdf"
     pages = model.load_document(path)
     model.build_search(pages)
-    print(f"pages: {pages[:2]}")
     questions = [
     # Input questions
     "What is HPP?",
