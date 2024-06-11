@@ -25,3 +25,4 @@ assignment7/*
 *.egg-info/*
 */__pycache__/*
 *safeti*
+chromadb/*
