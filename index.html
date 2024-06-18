@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Chat</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0 auto;
+            max-width: 500px;
+            font-family: Arial, sans-serif;
+        }
+        #chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        #chat {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        #input-container {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+        #message {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #send {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .message {
+            max-width: 70%;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 5px 0;
+            word-wrap: break-word;
+        }
+        .message.user {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+        }
+        .message.server {
+            background-color: #E6E6FA;
+            align-self: flex-start;
+        }
+    </style>
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat"></div>
+        <div id="input-container">
+            <input type="text" id="message" placeholder="Type a message...">
+            <button id="send">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const serverUrl = "ws://127.0.0.1:5000/chat";
+        const ws = new WebSocket(serverUrl);
+        const chat = document.getElementById('chat');
+        const messageInput = document.getElementById('message');
+        const sendButton = document.getElementById('send');
+        const ellipsis = document.createElement('div');
+        ellipsis.textContent = '...';
+        ellipsis.classList.add('message', 'server');
+        ellipsis.id = 'ellipsis'
+
+        ws.onmessage = (event) => {
+            chat.removeChild(ellipsis);
+            const message = document.createElement('div');
+            message.textContent = event.data;
+            message.classList.add('message', 'server');
+            chat.appendChild(message);
+            chat.scrollTop = chat.scrollHeight;
+        };
+
+        sendButton.onclick = () => {
+            const message = messageInput.value;
+            if (message.trim() !== "") {
+                const userMessageDiv = document.createElement('div');
+                userMessageDiv.textContent = message;
+                userMessageDiv.classList.add('message', 'user');
+                chat.appendChild(userMessageDiv);
+                
+                chat.appendChild(ellipsis);
+                
+                ws.send(message);
+                messageInput.value = '';
+                messageInput.focus();
+                chat.scrollTop = chat.scrollHeight;
+            }
+        };
+
+        messageInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
